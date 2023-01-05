@@ -1,6 +1,7 @@
 package kz.meiir.petproject.model;
 
 import java.time.LocalDateTime;
+import java.util.function.Supplier;
 
 /**
  * @author Meiir Akhmetov on 05.01.2023
