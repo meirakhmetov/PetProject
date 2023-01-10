@@ -34,7 +34,7 @@
         </tr>
         </thead>
         <c:forEach items="${meals}" var="meal">
-            <jsp:useBean id="meal" type="kz.meiir.petproject.model.MealTo"/>
+            <jsp:useBean id="meal" type="kz.meiir.petproject.to.MealTo"/>
             <tr class="${meal.excess ? 'excess' : 'normal'}">
                 <td>
                         ${fn:formatDateTime(meal.dateTime)}

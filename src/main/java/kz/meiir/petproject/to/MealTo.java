@@ -1,4 +1,4 @@
-package kz.meiir.petproject.model;
+package kz.meiir.petproject.to;
 
 import java.time.LocalDateTime;
 import java.util.function.Supplier;
