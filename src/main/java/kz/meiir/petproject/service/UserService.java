@@ -17,10 +17,10 @@ import static kz.meiir.petproject.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
 
-    public void setRepository(UserRepository repository){
+    @Autowired
+    public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
