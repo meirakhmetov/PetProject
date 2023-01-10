@@ -4,6 +4,7 @@ import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author Meiir Akhmetov on 10.01.2023
  */
+@Repository
 public class InMemoryUserRepository implements UserRepository {
     private static final Logger Log = LoggerFactory.getLogger(InMemoryUserRepository.class);
 

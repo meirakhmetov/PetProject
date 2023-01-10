@@ -4,6 +4,7 @@ import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import static kz.meiir.petproject.util.ValidationUtil.assureIdConsistent;
 public abstract class AbstractUserController {
     protected final Logger Log = LoggerFactory.getLogger(getClass());
 
+    @Autowired
     private UserService service;
 
     public List<User> getAll(){

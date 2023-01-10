@@ -1,6 +1,7 @@
 package kz.meiir.petproject.web.user;
 
 import kz.meiir.petproject.model.User;
+import org.springframework.stereotype.Controller;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * @author Meiir Akhmetov on 10.01.2023
  */
+@Controller
 public class AdminRestController extends AbstractUserController{
 
     @Override

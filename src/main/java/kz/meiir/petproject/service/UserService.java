@@ -3,6 +3,8 @@ package kz.meiir.petproject.service;
 import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.repository.UserRepository;
 import kz.meiir.petproject.util.exception.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,9 +14,15 @@ import static kz.meiir.petproject.util.ValidationUtil.checkNotFoundWithId;
 /**
  * @author Meiir Akhmetov on 09.01.2023
  */
+@Service
 public class UserService {
 
+    @Autowired
     private UserRepository repository;
+
+    public void setRepository(UserRepository repository){
+        this.repository = repository;
+    }
 
     public User create(User user){
         return repository.save(user);
