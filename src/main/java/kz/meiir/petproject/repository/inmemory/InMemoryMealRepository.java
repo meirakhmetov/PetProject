@@ -1,6 +1,7 @@
-package kz.meiir.petproject.repository;
+package kz.meiir.petproject.repository.inmemory;
 
 import kz.meiir.petproject.model.Meal;
+import kz.meiir.petproject.repository.MealRepository;
 import kz.meiir.petproject.util.MealsUtil;
 
 import java.util.Collection;

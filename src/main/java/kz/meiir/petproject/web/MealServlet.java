@@ -1,7 +1,7 @@
 package kz.meiir.petproject.web;
 
 import kz.meiir.petproject.model.Meal;
-import kz.meiir.petproject.repository.InMemoryMealRepository;
+import kz.meiir.petproject.repository.inmemory.InMemoryMealRepository;
 import kz.meiir.petproject.repository.MealRepository;
 import kz.meiir.petproject.util.MealsUtil;
 import org.slf4j.Logger;
