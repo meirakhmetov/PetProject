@@ -17,9 +17,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
+
+import static kz.meiir.petproject.util.DateTimeUtil.parseLocalDate;
+import static kz.meiir.petproject.util.DateTimeUtil.parseLocalTime;
 
 /**
  * @author Meiir Akhmetov on 06.01.2023
@@ -45,11 +50,10 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
         Meal meal = new Meal(
                 LocalDateTime.parse(request.getParameter("dateTime")),
                 request.getParameter("description"),
-                Integer.parseInt(request.getParameter("id")));
+                Integer.parseInt(request.getParameter("calories")));
 
         if(StringUtils.isEmpty(request.getParameter("id"))){
             mealController.create(meal);
@@ -76,6 +80,14 @@ public class MealServlet extends HttpServlet {
                         mealController.get(getId(request));
                 request.setAttribute("meal", meal);
                 request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
+                break;
+            case "filter":
+                LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
+                LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
+                LocalTime startTime = parseLocalTime(request.getParameter("startTime"));
+                LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
+                request.setAttribute("meals", mealController.getBetween(startDate,startTime,endDate,endTime));
+                request.getRequestDispatcher("/meals.jsp").forward(request,response);
                 break;
             case "all":
                 request.setAttribute("meals",mealController.getAll());

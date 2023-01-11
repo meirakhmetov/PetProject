@@ -1,4 +1,4 @@
-package kz.meiir.petproject.web;
+package kz.meiir.petproject;
 
 import kz.meiir.petproject.model.Role;
 import kz.meiir.petproject.model.User;
