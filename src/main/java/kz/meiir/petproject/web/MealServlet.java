@@ -1,7 +1,6 @@
 package kz.meiir.petproject.web;
 
 import kz.meiir.petproject.model.Meal;
-import kz.meiir.petproject.repository.inmemory.InMemoryMealRepository;
 import kz.meiir.petproject.repository.MealRepository;
 import kz.meiir.petproject.util.MealsUtil;
 import kz.meiir.petproject.web.meal.MealRestController;
