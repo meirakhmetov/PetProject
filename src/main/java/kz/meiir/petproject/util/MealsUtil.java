@@ -18,16 +18,6 @@ import java.util.stream.Collectors;
 public class MealsUtil {
     public static final int DEFAULT_CALORIES_PER_DAY = 2000;
 
-    public static final List<Meal> MEALS = Arrays.asList(
-                new Meal(LocalDateTime.of(2023, Month.JANUARY,1,10,0),"Завтрак",500),
-                new Meal(LocalDateTime.of(2023, Month.JANUARY,1,13,0),"Обед",1000),
-                new Meal(LocalDateTime.of(2023, Month.JANUARY,1,20,0),"Ужин",500),
-                new Meal(LocalDateTime.of(2023, Month.JANUARY,2,10,0),"Завтрак",1000),
-                new Meal(LocalDateTime.of(2023, Month.JANUARY,2,13,0),"Обед",500),
-                new Meal(LocalDateTime.of(2023, Month.JANUARY,2,20,0),"Ужин",500),
-                new Meal(LocalDateTime.of(2023, Month.JANUARY,2,23,0),"Поздний ужин",500)
-        );
-
     public static List<MealTo> getTos(Collection<Meal> meals, int caloriesPerDay){
         return getFiltered(meals, caloriesPerDay, meal -> true);
     }
