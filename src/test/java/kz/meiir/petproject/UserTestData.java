@@ -28,6 +28,6 @@ public class UserTestData {
     }
 
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("enable", "registered","roles").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("registered","roles").isEqualTo(expected);
     }
 }

@@ -1,6 +1,5 @@
 package kz.meiir.petproject.model;
 
-import javafx.print.Collation;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
@@ -19,7 +18,7 @@ public class User extends AbstractNamedEntity{
 
     private String password;
 
-    private boolean enable = true;
+    private boolean enabled = true;
 
     private Date registered = new Date();
 
@@ -31,19 +30,19 @@ public class User extends AbstractNamedEntity{
     }
 
     public User(User u){
-        this(u.getId(),u.getName(),u.getEmail(),u.getPassword(),u.getCaloriesPerDay(),u.isEnable(),u.getRegistered(),u.getRoles());
+        this(u.getId(),u.getName(),u.getEmail(),u.getPassword(),u.getCaloriesPerDay(),u.isEnabled(),u.getRegistered(),u.getRoles());
     }
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles){
         this(id, name,email, password,DEFAULT_CALORIES_PER_DAY,true, new Date(), EnumSet.of(role,roles));
     }
 
-    public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enable, Date registered, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
         this.email=email;
         this.password=password;
         this.caloriesPerDay=caloriesPerDay;
-        this.enable=enable;
+        this.enabled = enabled;
         this.registered = registered;
         setRoles(roles);
     }
@@ -68,8 +67,8 @@ public class User extends AbstractNamedEntity{
         this.registered = registered;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public int getCaloriesPerDay() {
@@ -80,8 +79,8 @@ public class User extends AbstractNamedEntity{
         this.caloriesPerDay = caloriesPerDay;
     }
 
-    public boolean isEnable() {
-        return enable;
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public Set<Role> getRoles() {
@@ -102,7 +101,7 @@ public class User extends AbstractNamedEntity{
                 "id=" + id +
                 ", email='" + email +
                 ", name='" + name +
-                ", enable=" + enable +
+                ", enable=" + enabled +
                 ", roles=" + roles +
                 ", caloriesPerDay=" + caloriesPerDay +
                 '}';

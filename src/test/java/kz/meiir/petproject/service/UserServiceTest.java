@@ -31,21 +31,15 @@ import static org.junit.Assert.*;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserServiceTest {
 
-    static{
-        // Only for postgres driver logging
-        // It uses java.util.logging and logged via jul-to-slf4j bridge
-        SLF4JBridgeHandler.install();
-    }
-
     @Autowired
     private UserService service;
 
     @Test
     public void create() throws Exception{
-        User newUser = new User(null, "New","new@ok.kz","newPass",1555,false, new Date(), Collections.singleton(Role.ROLE_USER));
+        User newUser = new User(null, "New","new@ok.kz","newPass",1555,false , new Date(), Collections.singleton(Role.ROLE_USER));
         User created = service.create(newUser);
         newUser.setId(created.getId());
-        assertMatch(service.getAll(),ADMIN,newUser,USER);
+        assertMatch(service.getAll(), ADMIN, newUser,USER);
     }
 
     @Test(expected = DataAccessException.class)
