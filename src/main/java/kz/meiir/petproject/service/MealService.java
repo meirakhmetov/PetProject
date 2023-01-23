@@ -5,6 +5,7 @@ import kz.meiir.petproject.repository.MealRepository;
 import kz.meiir.petproject.util.DateTimeUtil;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -45,10 +46,12 @@ public class MealService{
     }
 
     public void update(Meal meal, int userId){
+        Assert.notNull(meal, "meal must not be null");
         checkNotFoundWithId(repository.save(meal, userId),meal.getId());
     }
 
     public Meal create(Meal meal, int userId){
+        Assert.notNull(meal,"meal must not be null");
         return repository.save(meal, userId);
     }
 }

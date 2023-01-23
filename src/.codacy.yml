@@ -1,0 +1,5 @@
+---
+exculde_paths:
+  - 'src/main/webapp/**'
+  - 'README.md'
+  - '**.sql'
