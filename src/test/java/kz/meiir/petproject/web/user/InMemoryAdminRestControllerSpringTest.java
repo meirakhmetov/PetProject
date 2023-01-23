@@ -19,7 +19,7 @@ import static kz.meiir.petproject.UserTestData.ADMIN;
 /**
  * @author Meiir Akhmetov on 12.01.2023
  */
-@ContextConfiguration("classpath:spring/spring-app.xml")
+@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/inmemory.xml"})
 @RunWith(SpringRunner.class)
 public class InMemoryAdminRestControllerSpringTest {
 

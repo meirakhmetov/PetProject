@@ -6,7 +6,7 @@ http://www.springframework.org/schema/context https://www.springframework.org/sc
 
 
 
-    <context:component-scan base-package="kz.meiir.**.repository.jdbc"/>
+<!--    <context:component-scan base-package="kz.meiir.**.repository.jdbc"/>-->
 
     <context:component-scan base-package="kz.meiir.**.service"/>
 
