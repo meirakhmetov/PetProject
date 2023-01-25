@@ -24,7 +24,7 @@ public class UserTestData {
     }
 
     public static void assertMatch(Iterable<User> actual, User... expected){
-        assertMatch(actual, Arrays.asList(expected));
+        assertMatch(actual, List.of(expected));
     }
 
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
