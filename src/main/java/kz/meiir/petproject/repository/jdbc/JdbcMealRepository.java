@@ -16,6 +16,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static kz.meiir.petproject.util.DateTimeUtil.getEndExclusive;
+import static kz.meiir.petproject.util.DateTimeUtil.getStartInclusive;
+
 /**
  * @author Meiir Akhmetov on 17.01.2023
  */
@@ -80,10 +83,8 @@ public class JdbcMealRepository implements MealRepository {
 
     @Override
     public List<Meal> getBetweenInclusive(LocalDate startDate, LocalDate endDate, int userId) {
-        startDate = (startDate == null ? LocalDate.MIN : startDate);
-        endDate = (endDate == null ? LocalDate.MAX : endDate);
         return jdbcTemplate.query(
                 "SELECT * FROM meals WHERE user_id=? AND (date_time AS DATE) BETWEEN ? AND ? ORDER BY date_time DESC",
-                ROW_MAPPER, userId, startDate, endDate);
+                ROW_MAPPER, userId, getStartInclusive(startDate), getEndExclusive(endDate));
     }
 }
