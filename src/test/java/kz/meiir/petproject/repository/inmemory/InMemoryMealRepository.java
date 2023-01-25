@@ -13,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
@@ -75,10 +76,8 @@ public class InMemoryMealRepository implements MealRepository {
     }
 
     @Override
-    public List<Meal> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId){
-        Objects.requireNonNull(startDateTime, "startDateTime must not be null");
-        Objects.requireNonNull(endDateTime, "endDateTime must not be null");
-        return getAllFiltered(userId, meal -> Util.isBetweenInclusive(meal.getDateTime(),startDateTime,endDateTime));
+    public List<Meal> getBetweenInclusive(LocalDate startDateTime, LocalDate endDateTime, int userId){
+        return getAllFiltered(userId, meal -> Util.isBetweenInclusive(meal.getDate(),startDateTime,endDateTime));
     }
 
     private List<Meal> getAllFiltered(int userId, Predicate<Meal> filter) {

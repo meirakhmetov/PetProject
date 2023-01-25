@@ -1,7 +1,9 @@
 package kz.meiir.petproject.repository;
 
 import kz.meiir.petproject.model.Meal;
+import org.springframework.lang.Nullable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,6 +23,6 @@ public interface MealRepository {
 
     List<Meal> getAll(int userId);
 
-    List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
+    List<Meal> getBetweenInclusive(@Nullable LocalDate startDate, @Nullable LocalDate endDate, int userId);
 
 }

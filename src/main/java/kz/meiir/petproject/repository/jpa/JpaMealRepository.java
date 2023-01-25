@@ -4,6 +4,7 @@ import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.repository.MealRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class JpaMealRepository implements MealRepository {
     }
 
     @Override
-    public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
+    public List<Meal> getBetweenInclusive(LocalDate startDate, LocalDate endDate, int userId) {
         return null;
     }
 }
