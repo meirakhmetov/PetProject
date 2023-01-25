@@ -6,6 +6,7 @@ import org.springframework.util.CollectionUtils;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Date;
@@ -45,7 +46,7 @@ public class User extends AbstractNamedEntity{
     private boolean enabled = true;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
-    @NotBlank
+    @NotNull
     private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)

@@ -1,5 +1,7 @@
 package kz.meiir.petproject.repository.inmemory;
 
+import kz.meiir.petproject.MealTestData;
+import kz.meiir.petproject.UserTestData;
 import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.repository.MealRepository;
 import kz.meiir.petproject.util.MealsUtil;
@@ -31,6 +33,12 @@ public class InMemoryMealRepository implements MealRepository {
     private static final Logger Log = LoggerFactory.getLogger(InMemoryMealRepository.class);
 
     private Map<Integer,InMemoryBaseRepository<Meal>> usersMealsMap = new ConcurrentHashMap<>();
+
+    {
+        InMemoryBaseRepository<Meal> userMeals = new InMemoryBaseRepository<>();
+        usersMealsMap.put(USER_ID, userMeals);
+        MealTestData.MEALS.forEach(meal ->userMeals.map.put(meal.getId(),meal));
+    }
 
     @Override
     public Meal save(Meal meal, int userId) {
