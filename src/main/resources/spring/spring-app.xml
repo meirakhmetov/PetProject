@@ -5,6 +5,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 
+    <import resource="spring-tools.xml"/>
 
 <!--    <context:component-scan base-package="kz.meiir.**.repository.jdbc"/>-->
 
