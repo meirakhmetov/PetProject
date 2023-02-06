@@ -1,14 +1,12 @@
 package kz.meiir.petproject.service;
 
 import kz.meiir.petproject.model.Meal;
-import kz.meiir.petproject.repository.MealRepository;
-import kz.meiir.petproject.util.DateTimeUtil;
+import kz.meiir.petproject.repository.MealRepository;;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import static kz.meiir.petproject.util.ValidationUtil.checkNotFoundWithId;

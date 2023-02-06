@@ -1,5 +1,7 @@
 package kz.meiir.petproject.service;
 
+import kz.meiir.petproject.ActiveDbProfileResolver;
+import kz.meiir.petproject.Profiles;
 import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.util.exception.NotFoundException;
 import org.junit.AfterClass;
@@ -10,12 +12,12 @@ import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -24,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 import static kz.meiir.petproject.MealTestData.*;
 import static kz.meiir.petproject.UserTestData.ADMIN_ID;
 import static kz.meiir.petproject.UserTestData.USER_ID;
-import static org.junit.Assert.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
@@ -34,8 +35,9 @@ import static org.slf4j.LoggerFactory.getLogger;
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
 })
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 public class MealServiceTest {
     private static final Logger Log = getLogger("result");
 
@@ -49,7 +51,7 @@ public class MealServiceTest {
     public Stopwatch stopwatch = new Stopwatch() {
         @Override
         protected void finished(long nanos, Description description){
-            String result = String.format("\n%-25s %8d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
+            String result = String.format("\n%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
             results.append(result);
             Log.info(result+" ms\n");
         }

@@ -2,6 +2,7 @@ package kz.meiir.petproject.repository;
 
 import kz.meiir.petproject.model.Meal;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
