@@ -49,7 +49,7 @@ public class UserServiceTest {
 
     @Test
     public void create() throws Exception{
-        User newUser = new User(null, "New","new@ok.kz","newPass",1555,false , new Date(), Collections.singleton(Role.ROLE_USER));
+        User newUser = getNew();
         User created = service.create(newUser);
         Integer newId = created.getId();
         newUser.setId(newId);
@@ -92,9 +92,7 @@ public class UserServiceTest {
 
     @Test
     public void update() throws Exception {
-        User updated = new User(USER);
-        updated.setName("UpdatesName");
-        updated.setCaloriesPerDay(330);
+        User updated = getUpdated();
         service.update(updated);
         assertMatch(service.get(USER_ID), updated);
     }

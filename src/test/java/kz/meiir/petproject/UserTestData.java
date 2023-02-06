@@ -4,6 +4,8 @@ import kz.meiir.petproject.model.Role;
 import kz.meiir.petproject.model.User;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static kz.meiir.petproject.model.AbstractBaseEntity.START_SEQ;
@@ -18,6 +20,17 @@ public class UserTestData {
 
     public static final User USER = new User(USER_ID, "User", "user@ok.kz", "password", Role.ROLE_USER);
     public static final User ADMIN = new User(ADMIN_ID,"Admin","admin@ok.kz","admin", Role.ROLE_ADMIN);
+
+    public static User getNew(){
+        return new User(null, "New","new@ok.kz","newPass",1555,false , new Date(), Collections.singleton(Role.ROLE_USER));
+    }
+
+    public static User getUpdated(){
+        User updated = new User(USER);
+        updated.setName("UpdatesName");
+        updated.setCaloriesPerDay(330);
+        return updated;
+    }
 
     public static void assertMatch(User actual, User expected){
         assertThat(actual).isEqualToIgnoringGivenFields(expected,"registered","roles");
