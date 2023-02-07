@@ -12,12 +12,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static kz.meiir.petproject.util.DateTimeUtil.getEndExclusive;
-import static kz.meiir.petproject.util.DateTimeUtil.getStartInclusive;
 
 /**
  * @author Meiir Akhmetov on 17.01.2023
@@ -56,7 +52,11 @@ public class JdbcMealRepository implements MealRepository {
             Number newId = insertMeal.executeAndReturnKey(map);
             meal.setId(newId.intValue());
         }else{
-            if(namedParameterJdbcTemplate.update("UPDATE meals SET description =:description, calories=:calories, date_time=:date_time WHERE id=:id AND user_id=:user_id", map)==0){
+            if(namedParameterJdbcTemplate.update(""+
+                    "UPDATE meals " +
+                    " SET description =:description, calories=:calories, date_time=:date_time " +
+                    " WHERE id=:id AND user_id=:user_id"
+                    , map) == 0) {
                 return null;
             }
         }

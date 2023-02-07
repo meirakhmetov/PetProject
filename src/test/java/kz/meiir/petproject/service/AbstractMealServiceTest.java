@@ -1,73 +1,25 @@
 package kz.meiir.petproject.service;
 
-import kz.meiir.petproject.ActiveDbProfileResolver;
-import kz.meiir.petproject.Profiles;
 import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.util.exception.NotFoundException;
-import org.junit.AfterClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.Stopwatch;
-import org.junit.runner.Description;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
+
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.concurrent.TimeUnit;
 
 import static kz.meiir.petproject.MealTestData.*;
 import static kz.meiir.petproject.UserTestData.ADMIN_ID;
 import static kz.meiir.petproject.UserTestData.USER_ID;
-import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * @author Meiir Akhmetov on 20.01.2023
  */
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
-public class MealServiceTest {
-    private static final Logger Log = getLogger("result");
-
-    private static StringBuilder results = new StringBuilder();
+public abstract class AbstractMealServiceTest extends AbstractServiceTest{
 
     @Autowired
     private MealService service;
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    @Rule
-    //http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
-    public Stopwatch stopwatch = new Stopwatch() {
-        @Override
-        protected void finished(long nanos, Description description){
-            String result = String.format("\n%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
-            results.append(result);
-            Log.info(result+" ms\n");
-        }
-    };
-
-    @AfterClass
-    public static void printResult(){
-        Log.info("\n--------------------------" +
-                "\nTest          Duration, ms" +
-                "\n--------------------------" +
-                results +
-                "\n--------------------------");
-    }
 
     @Test
     public void delete() throws Exception{
@@ -135,7 +87,7 @@ public class MealServiceTest {
     }
 
     @Test
-    public void getBetweenDates() throws Exception {
+    public void getBetween() throws Exception {
         assertMatch(service.getBetweenDates(
                 LocalDate.of(2023, Month.JANUARY,1),
                 LocalDate.of(2023, Month.JANUARY,1),USER_ID),MEAL3,MEAL2,MEAL1);
