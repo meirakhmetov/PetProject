@@ -1,5 +1,6 @@
 package kz.meiir.petproject.web;
 
+import kz.meiir.petproject.Profiles;
 import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.repository.MealRepository;
 import kz.meiir.petproject.util.MealsUtil;
@@ -30,13 +31,16 @@ import static kz.meiir.petproject.util.DateTimeUtil.parseLocalTime;
  */
 public class MealServlet extends HttpServlet {
 
-    private ConfigurableApplicationContext springContext;
+    private ClassPathXmlApplicationContext springContext;
     private MealRestController mealController;
 
     @Override
     public void init(ServletConfig config) throws ServletException{
         super.init(config);
-        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"},false);
+//        springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
+        springContext.refresh();
         mealController = springContext.getBean(MealRestController.class);
     }
 
