@@ -1,12 +1,16 @@
 package kz.meiir.petproject.repository;
 
 import kz.meiir.petproject.model.Meal;
+import kz.meiir.petproject.util.DateTimeUtil;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static kz.meiir.petproject.util.DateTimeUtil.getEndExclusive;
+import static kz.meiir.petproject.util.DateTimeUtil.getStartInclusive;
 
 /**
  * @author Meiir Akhmetov on 09.01.2023
@@ -23,7 +27,11 @@ public interface MealRepository {
     Meal get(int id, int userId);
 
     List<Meal> getAll(int userId);
+    default List<Meal> getBetweenInclusive(@Nullable LocalDate startDate, @Nullable LocalDate endDate, int userId){
+        return getBetweenInclusive(getStartInclusive(startDate), getEndExclusive(endDate), userId);
+    };
 
-    List<Meal> getBetweenInclusive(@Nullable LocalDate startDate, @Nullable LocalDate endDate, int userId);
+
+    List<Meal> getBetweenInclusive(@Nullable LocalDateTime startDate, @Nullable LocalDateTime endDate, int userId);
 
 }
