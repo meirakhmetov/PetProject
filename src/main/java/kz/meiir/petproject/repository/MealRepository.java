@@ -1,9 +1,8 @@
 package kz.meiir.petproject.repository;
 
 import kz.meiir.petproject.model.Meal;
-import kz.meiir.petproject.util.DateTimeUtil;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,6 +31,10 @@ public interface MealRepository {
     };
 
 
-    List<Meal> getBetweenInclusive(@Nullable LocalDateTime startDate, @Nullable LocalDateTime endDate, int userId);
+    List<Meal> getBetweenInclusive(@NonNull LocalDateTime startDate, @NonNull LocalDateTime endDate, int userId);
+
+    default Meal getWithUser(int id, int userId){
+        throw new UnsupportedOperationException();
+    }
 
 }

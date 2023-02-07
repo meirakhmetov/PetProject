@@ -1,10 +1,9 @@
 package kz.meiir.petproject.repository.jdbc;
 
-import kz.meiir.petproject.Profiles;
+
 import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.repository.MealRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
+
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,7 +13,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +20,7 @@ import java.util.List;
  * @author Meiir Akhmetov on 17.01.2023
  */
 @Repository
-public abstract class JdbcMealRepository<T> implements MealRepository {
+public class JdbcMealRepository implements MealRepository {
 
     private static final RowMapper<Meal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Meal.class);
 
@@ -32,40 +30,13 @@ public abstract class JdbcMealRepository<T> implements MealRepository {
 
     private final SimpleJdbcInsert insertMeal;
 
-    JdbcMealRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate){
+    public JdbcMealRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate){
         this.insertMeal = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("meals")
                 .usingGeneratedKeyColumns("id");
 
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    protected abstract T toDbDateTime(LocalDateTime ldt);
-
-    @Repository
-    @Profile(Profiles.POSTGRES_DB)
-    public static class Java8JdbcMealRepository extends JdbcMealRepository<LocalDateTime>{
-        public Java8JdbcMealRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate){
-            super(jdbcTemplate, namedParameterJdbcTemplate);
-        }
-        @Override
-        protected LocalDateTime toDbDateTime(LocalDateTime ldt){
-            return ldt;
-        }
-    }
-
-    @Repository
-    @Profile(Profiles.HSQL_DB)
-    public static class TimestampJdbcMealRepository extends JdbcMealRepository<Timestamp>{
-        public TimestampJdbcMealRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate){
-            super(jdbcTemplate, namedParameterJdbcTemplate);
-        }
-
-        @Override
-        protected Timestamp toDbDateTime(LocalDateTime ldt){
-            return Timestamp.valueOf(ldt);
-        }
     }
 
 
