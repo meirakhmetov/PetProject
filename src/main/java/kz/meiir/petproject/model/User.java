@@ -1,5 +1,6 @@
 package kz.meiir.petproject.model;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.util.CollectionUtils;
 
@@ -50,6 +51,8 @@ public class User extends AbstractNamedEntity{
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name="user_id"))
     @Column(name="role")
     @ElementCollection(fetch = FetchType.EAGER)
+//    @Fetch(FetchMode.SUBSELECT)
+    @BatchSize(size = 200)
     private Set<Role> roles;
 
     @Column(name = "calories_per_day", nullable = false, columnDefinition = "int default 2000")
