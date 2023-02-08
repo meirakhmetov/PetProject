@@ -6,9 +6,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.time.Month;
 
+import static java.time.LocalDateTime.of;
 import static kz.meiir.petproject.MealTestData.*;
 import static kz.meiir.petproject.UserTestData.ADMIN_ID;
 import static kz.meiir.petproject.UserTestData.USER_ID;
@@ -98,8 +100,12 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest{
         assertMatch(service.getBetweenDates(null,null,USER_ID),MEALS);
     }
 
-
-
-
+    @Test
+    public void createWithException() throws Exception{
+        validateRootCause(()-> service.create(new Meal(null,of(2023,Month.JANUARY,1,18,0)," ",300),USER_ID), ConstraintViolationException.class);
+        validateRootCause(()-> service.create(new Meal(null,null,"Description",300),USER_ID), ConstraintViolationException.class);
+        validateRootCause(()-> service.create(new Meal(null,of(2023,Month.JANUARY,1,18,0),"Description",9),USER_ID), ConstraintViolationException.class);
+        validateRootCause(()-> service.create(new Meal(null,of(2023,Month.JANUARY,1,18,0),"Description",5001),USER_ID), ConstraintViolationException.class);
+    }
 
 }

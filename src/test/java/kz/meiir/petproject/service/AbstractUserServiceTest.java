@@ -10,7 +10,10 @@ import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 
 
+import javax.validation.ConstraintViolationException;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import static kz.meiir.petproject.UserTestData.*;
 
@@ -86,6 +89,17 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest{
     public void getAll() throws Exception {
         List<User> all = service.getAll();
         assertMatch(all,ADMIN, USER);
+    }
+
+    @Test
+    public void createWithException() throws Exception{
+        validateRootCause(()-> service.create(new User(null," ","mail@ok.kz","password",Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(()-> service.create(new User(null,"User"," ","password",Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(()-> service.create(new User(null,"User","mail@ok.kz"," ",Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(()-> service.create(new User(null,"User","mail@ok.kz","password",9,true,new Date(), Set.of())), ConstraintViolationException.class);
+        validateRootCause(()-> service.create(new User(null,"User","mail@ok.kz","password",10001,true,new Date(), Set.of())), ConstraintViolationException.class);
+
+
     }
 
 }
