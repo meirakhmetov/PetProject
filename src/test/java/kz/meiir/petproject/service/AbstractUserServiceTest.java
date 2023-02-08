@@ -2,6 +2,7 @@ package kz.meiir.petproject.service;
 
 import kz.meiir.petproject.model.Role;
 import kz.meiir.petproject.model.User;
+import kz.meiir.petproject.repository.JpaUtil;
 import kz.meiir.petproject.util.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,9 +31,13 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest{
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
+    protected JpaUtil jpaUtil;
+
     @Before
     public void setUp() throws Exception{
         cacheManager.getCache("users").clear();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test
