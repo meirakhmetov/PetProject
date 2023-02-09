@@ -11,6 +11,6 @@ http://www.springframework.org/schema/context https://www.springframework.org/sc
 
     <context:component-scan base-package="kz.meiir.**.service"/>
 
-    <context:component-scan base-package="kz.meiir.**.web"/>
+
 
 </beans>
