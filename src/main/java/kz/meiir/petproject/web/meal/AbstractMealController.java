@@ -21,7 +21,7 @@ import static kz.meiir.petproject.util.ValidationUtil.checkNew;
  * @author Meiir Akhmetov on 13.02.2023
  */
 public abstract class AbstractMealController {
-    private static final Logger Log = LoggerFactory.getLogger(MealRestController.class);
+    private final Logger Log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private MealService service;
