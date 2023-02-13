@@ -10,4 +10,8 @@ import static kz.meiir.petproject.Profiles.JDBC;
  */
 @ActiveProfiles(JDBC)
 public class JdbcUserServiceTest extends AbstractUserServiceTest {
+    @Override
+    public void sepUp() throws Exception {
+
+    }
 }

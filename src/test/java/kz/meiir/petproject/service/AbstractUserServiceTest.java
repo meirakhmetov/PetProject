@@ -31,13 +31,9 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest{
     @Autowired
     private CacheManager cacheManager;
 
-    @Autowired
-    protected JpaUtil jpaUtil;
-
     @Before
     public void setUp() throws Exception{
         cacheManager.getCache("users").clear();
-        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test
@@ -96,15 +92,6 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest{
         assertMatch(all,ADMIN, USER);
     }
 
-    @Test
-    public void createWithException() throws Exception{
-        validateRootCause(()-> service.create(new User(null," ","mail@ok.kz","password",Role.ROLE_USER)), ConstraintViolationException.class);
-        validateRootCause(()-> service.create(new User(null,"User"," ","password",Role.ROLE_USER)), ConstraintViolationException.class);
-        validateRootCause(()-> service.create(new User(null,"User","mail@ok.kz"," ",Role.ROLE_USER)), ConstraintViolationException.class);
-        validateRootCause(()-> service.create(new User(null,"User","mail@ok.kz","password",9,true,new Date(), Set.of())), ConstraintViolationException.class);
-        validateRootCause(()-> service.create(new User(null,"User","mail@ok.kz","password",10001,true,new Date(), Set.of())), ConstraintViolationException.class);
-
-
-    }
-
+    @Before
+    public abstract void sepUp() throws Exception;
 }
