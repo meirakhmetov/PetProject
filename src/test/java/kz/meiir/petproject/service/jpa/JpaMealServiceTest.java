@@ -9,5 +9,5 @@ import static kz.meiir.petproject.Profiles.JPA;
  * @author Meiir Akhmetov on 07.02.2023
  */
 @ActiveProfiles(JPA)
-public class JpaMealServiceTest extends AbstractMealServiceTest {
+class JpaMealServiceTest extends AbstractMealServiceTest {
 }

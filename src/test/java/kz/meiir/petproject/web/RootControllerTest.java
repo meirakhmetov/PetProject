@@ -1,6 +1,7 @@
 package kz.meiir.petproject.web;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static kz.meiir.petproject.UserTestData.USER;
 import static kz.meiir.petproject.model.AbstractBaseEntity.START_SEQ;
@@ -13,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Meiir Akhmetov on 14.02.2023
  */
-public class RootControllerTest extends AbstractControllerTest {
+class RootControllerTest extends AbstractControllerTest {
 
     @Test
     public void getUsers() throws Exception{

@@ -9,5 +9,5 @@ import static kz.meiir.petproject.Profiles.JDBC;
  * @author Meiir Akhmetov on 07.02.2023
  */
 @ActiveProfiles(JDBC)
-public class JdbcMealServiceTest extends AbstractMealServiceTest {
+class JdbcMealServiceTest extends AbstractMealServiceTest {
 }

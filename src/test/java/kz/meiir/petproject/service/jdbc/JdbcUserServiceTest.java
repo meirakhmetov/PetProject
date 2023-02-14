@@ -9,6 +9,6 @@ import static kz.meiir.petproject.Profiles.JDBC;
  * @author Meiir Akhmetov on 07.02.2023
  */
 @ActiveProfiles(JDBC)
-public class JdbcUserServiceTest extends AbstractUserServiceTest {
+class JdbcUserServiceTest extends AbstractUserServiceTest {
 
 }

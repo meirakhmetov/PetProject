@@ -10,5 +10,5 @@ import static kz.meiir.petproject.Profiles.JPA;
  * @author Meiir Akhmetov on 07.02.2023
  */
 @ActiveProfiles(JPA)
-public class JpaUserServiceTest extends AbstractJpaUserServiceTest {
+class JpaUserServiceTest extends AbstractJpaUserServiceTest {
 }
