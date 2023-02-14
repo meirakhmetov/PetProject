@@ -14,13 +14,12 @@ import java.util.Set;
 /**
  * @author Meiir Akhmetov on 13.02.2023
  */
-abstract public class AbstractJpaUserServiceTest extends AbstractUserServiceTest{
+public abstract class AbstractJpaUserServiceTest extends AbstractUserServiceTest{
 
     @Autowired
     private JpaUtil jpaUtil;
 
     @Before
-    @Override
     public void sepUp() throws Exception{
         super.setUp();
         jpaUtil.clear2ndLevelHibernateCache();
