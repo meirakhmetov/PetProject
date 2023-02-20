@@ -1,7 +1,7 @@
 package kz.meiir.petproject.to;
 
 import java.time.LocalDateTime;
-import java.util.function.Supplier;
+import java.util.Objects;
 
 /**
  * @author Meiir Akhmetov on 05.01.2023
@@ -43,6 +43,23 @@ public class MealTo {
 
     public boolean isExcess() {
         return excess;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o )return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        MealTo that = (MealTo) o;
+        return calories == that.calories &&
+                excess == that.excess &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(dateTime, that.dateTime) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id,dateTime,description,calories,excess);
     }
 
     @Override

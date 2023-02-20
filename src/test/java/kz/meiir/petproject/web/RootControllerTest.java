@@ -7,10 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static kz.meiir.petproject.MealTestData.MEALS;
 import static kz.meiir.petproject.UserTestData.*;
 
 
-
+import static kz.meiir.petproject.util.MealsUtil.getTos;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -35,5 +36,15 @@ class RootControllerTest extends AbstractControllerTest {
                             }
                         }
                 ));
+    }
+
+    @Test
+    void testMeals() throws Exception{
+        mockMvc.perform(get("/meals"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("meals"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/meals.jsp"))
+                .andExpect(model().attribute("meals", getTos(MEALS, SecurityUtil.authUserCaloriesPerDay())));
     }
 }
