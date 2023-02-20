@@ -98,12 +98,12 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest{
     }
 
     @Test
-    public void getBetweenWithNullDates() throws Exception{
+    void getBetweenWithNullDates() throws Exception{
         assertMatch(service.getBetweenDates(null,null,USER_ID),MEALS);
     }
 
     @Test
-    public void createWithException() throws Exception{
+    void createWithException() throws Exception{
         Assumptions.assumeTrue(isJpaBased(),"Validation not support (JPA only)");
         validateRootCause(()-> service.create(new Meal(null,of(2023,Month.JANUARY,1,18,0)," ",300),USER_ID), ConstraintViolationException.class);
         validateRootCause(()-> service.create(new Meal(null,null,"Description",300),USER_ID), ConstraintViolationException.class);
