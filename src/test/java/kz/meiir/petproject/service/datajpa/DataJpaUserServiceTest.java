@@ -2,7 +2,7 @@ package kz.meiir.petproject.service.datajpa;
 
 import kz.meiir.petproject.MealTestData;
 import kz.meiir.petproject.model.User;
-import kz.meiir.petproject.service.AbstractJpaUserServiceTest;
+import kz.meiir.petproject.service.AbstractUserServiceTest;
 import kz.meiir.petproject.util.exception.NotFoundException;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Meiir Akhmetov on 07.02.2023
  */
 @ActiveProfiles(DATAJPA)
-class DataJpaUserServiceTest extends AbstractJpaUserServiceTest {
+class DataJpaUserServiceTest extends AbstractUserServiceTest {
     @Test
     public void getWithMeals() throws Exception{
         User admin = service.getWithMeals(ADMIN_ID);

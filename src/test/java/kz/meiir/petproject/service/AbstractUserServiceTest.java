@@ -3,6 +3,7 @@ package kz.meiir.petproject.service;
 import kz.meiir.petproject.model.Role;
 import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.util.exception.NotFoundException;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,10 @@ import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 
 
+import javax.validation.ConstraintViolationException;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 import static kz.meiir.petproject.UserTestData.*;
@@ -25,14 +29,6 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest{
 
     @Autowired
     protected UserService service;
-
-    @Autowired
-    private CacheManager cacheManager;
-
-    @BeforeEach
-    void setUp() throws Exception{
-        cacheManager.getCache("users").clear();
-    }
 
     @Test
     void create() throws Exception{
@@ -92,5 +88,15 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest{
     void getAll() throws Exception {
         List<User> all = service.getAll();
         assertMatch(all,ADMIN, USER);
+    }
+
+    @Test
+    void createWithException() throws Exception{
+        Assumptions.assumeTrue(isJpaBased(), "Validation not support (JPA only)");
+        validateRootCause(() -> service.create(new User(null," ", "mail@ok.kz", "password", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null,"User", "", "password", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null,"User", "mail@ok.kz", "", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null,"User", "mail@ok.kz", "password",9,true,new Date(), Set.of())), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null,"User", "mail@ok.kz", "password",100001,true,new Date(), Set.of())), ConstraintViolationException.class);
     }
 }

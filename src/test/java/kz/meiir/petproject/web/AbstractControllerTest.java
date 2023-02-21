@@ -1,10 +1,7 @@
 package kz.meiir.petproject.web;
 
 import kz.meiir.petproject.AllActiveProfileResolver;
-import kz.meiir.petproject.repository.JpaUtil;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,12 +36,6 @@ abstract public class AbstractControllerTest {
     protected MockMvc mockMvc;
 
     @Autowired
-    private CacheManager cacheManager;
-
-    @Autowired(required = false)
-    private JpaUtil jpaUtil;
-
-    @Autowired
     private WebApplicationContext webApplicationContext;
 
     @PostConstruct
@@ -53,13 +44,5 @@ abstract public class AbstractControllerTest {
                 .webAppContextSetup(webApplicationContext)
                 .addFilter(CHARACTER_ENCODING_FILTER)
                 .build();
-    }
-
-    @BeforeEach
-    public void setUp(){
-        cacheManager.getCache("users").clear();
-        if(jpaUtil!=null){
-            jpaUtil.clear2ndLevelHibernateCache();
-        }
     }
 }
