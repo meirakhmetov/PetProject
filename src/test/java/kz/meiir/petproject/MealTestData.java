@@ -1,12 +1,15 @@
 package kz.meiir.petproject;
 
 import kz.meiir.petproject.model.Meal;
+import kz.meiir.petproject.to.MealTo;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
 import static java.time.LocalDateTime.of;
+import static kz.meiir.petproject.TestUtil.readListFromJsonMvcResult;
 import static kz.meiir.petproject.model.AbstractBaseEntity.START_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,5 +52,12 @@ public class MealTestData {
         assertThat(actual).usingElementComparatorIgnoringFields("user").isEqualTo(expected);
     }
 
+    public static ResultMatcher contentJson(MealTo... expected){
+        return contentJson(List.of(expected));
+    }
+
+    public static ResultMatcher contentJson(Iterable<MealTo> expected){
+        return result -> assertThat(readListFromJsonMvcResult(result, MealTo.class)).isEqualTo(expected);
+    }
 
 }

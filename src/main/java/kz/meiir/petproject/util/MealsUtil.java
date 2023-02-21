@@ -5,9 +5,7 @@ import kz.meiir.petproject.to.MealTo;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -37,11 +35,11 @@ public class MealsUtil {
                 );
         return meals.stream()
                 .filter(filter)
-                .map(meal ->creatTo(meal, caloriesSumByDate.get(meal.getDate())>caloriesPerDay))
+                .map(meal -> createTo(meal, caloriesSumByDate.get(meal.getDate())>caloriesPerDay))
                 .collect(Collectors.toList());
     }
 
-    private static MealTo creatTo(Meal meal, boolean excess) {
+    public static MealTo createTo(Meal meal, boolean excess) {
         return new MealTo(meal.getId(),meal.getDateTime(),meal.getDescription(),meal.getCalories(),excess);
     }
 }
