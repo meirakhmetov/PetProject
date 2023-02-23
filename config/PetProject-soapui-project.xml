@@ -39,11 +39,11 @@
                     <con:request/>
                     <con:originalUri>http://localhost/topjava/rest/admin/users</con:originalUri>
                     <con:credentials>
-                        <con:username>user@yandex.ru</con:username>
-                        <con:password>password</con:password>
-                        <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+                        <con:username>admin@ok.kz</con:username>
+                        <con:password>admin</con:password>
+                        <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
                         <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
-                        <con:authType>No Authorization</con:authType>
+                        <con:authType>Global HTTP Settings</con:authType>
                     </con:credentials>
                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                     <con:jmsPropertyConfig/>
@@ -88,9 +88,9 @@
                     </con:request>
                     <con:originalUri>http://localhost/topjava/rest/admin/users</con:originalUri>
                     <con:credentials>
-                        <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+                        <con:username>admin@ok.kz</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile>
                         <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
-                        <con:authType>No Authorization</con:authType>
+                        <con:authType>Global HTTP Settings</con:authType>
                     </con:credentials>
                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                     <con:jmsPropertyConfig/>
@@ -372,7 +372,7 @@
             </con:request>
             </con:method>
         </con:resource>
-        <con:resource name="meals" path="/PetProject/rest/profile/meals" id="7c294ec8-2725-47c0-8856-3d4155c1511b">
+        <con:resource name="meals" path="/PetProject/rest/profile/meals/100001" id="7c294ec8-2725-47c0-8856-3d4155c1511b">
             <con:settings/>
             <con:parameters/>
             <con:method name="" id="bb6b0e54-4bd0-4ca0-98a5-7364995b9980" method="GET">
@@ -390,16 +390,15 @@
                     <con:params/>
                     <con:element>Response</con:element>
                 </con:representation>
-                <con:request name="GetAll" id="2a72d2ca-373a-4aeb-ab90-9804e8bcf92d" mediaType="application/json">
+                <con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>401 500</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="GetAll" id="2a72d2ca-373a-4aeb-ab90-9804e8bcf92d" mediaType="application/json">
                     <con:settings>
-                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/>
-                        </con:setting>
+                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                     </con:settings>
                     <con:endpoint>http://localhost:8080</con:endpoint>
                     <con:request/>
                     <con:originalUri>http://localhost/topjava/rest/profile/meals</con:originalUri>
                     <con:credentials>
-                        <con:authType>No Authorization</con:authType>
+                        <con:username>admin@ok.kz</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                     </con:credentials>
                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                     <con:jmsPropertyConfig/>

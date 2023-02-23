@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-<script type="text/javascript" src="/resources/js/petProject.common.js" defer></script>
-<script type="text/javascript" src="/resources/js/petProject.users.js" defer></script>
+<script type="text/javascript" src="resources/js/petProject.common.js" defer></script>
+<script type="text/javascript" src="resources/js/petProject.users.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="jumbotron pt-4">
