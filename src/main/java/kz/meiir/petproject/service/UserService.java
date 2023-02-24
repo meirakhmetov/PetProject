@@ -2,6 +2,8 @@ package kz.meiir.petproject.service;
 
 import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.repository.UserRepository;
+import kz.meiir.petproject.to.UserTo;
+import kz.meiir.petproject.util.UserUtil;
 import kz.meiir.petproject.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -56,7 +58,15 @@ public class UserService {
     @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
         Assert.notNull(user,"user must not be null");
-        checkNotFoundWithId(repository.save(user),user.getId());
+//      checkNotFoundWithId: check works only for JDBC, disabled
+        repository.save(user);
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
+    public void update(UserTo userTo){
+        User user = get(userTo.id());
+        repository.save(UserUtil.updateFromTo(user, userTo));
     }
 
     @CacheEvict(value = "users", allEntries = true)

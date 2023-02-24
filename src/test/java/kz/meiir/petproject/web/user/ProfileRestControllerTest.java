@@ -3,6 +3,8 @@ package kz.meiir.petproject.web.user;
 import kz.meiir.petproject.UserTestData;
 import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.service.UserService;
+import kz.meiir.petproject.to.UserTo;
+import kz.meiir.petproject.util.UserUtil;
 import kz.meiir.petproject.web.AbstractControllerTest;
 import kz.meiir.petproject.web.json.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -41,14 +43,14 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception{
-        User updated = UserTestData.getUpdated();
+        UserTo updatedTo = new UserTo(null, "newName","newemail@ok.kz","newPassword");
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
+                .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        assertMatch(userService.get(USER_ID), updated);
+        assertMatch(userService.get(USER_ID), UserUtil.updateFromTo(new User(USER), updatedTo));
     }
 
 }
