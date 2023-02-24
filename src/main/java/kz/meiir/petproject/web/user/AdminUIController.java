@@ -40,6 +40,8 @@ public class AdminUIController extends AbstractUserController {
     public void createOrUpdate(UserTo userTo){
         if(userTo.isNew()){
             super.create(userTo);
+        } else{
+            super.update(userTo, userTo.id());
         }
     }
 
