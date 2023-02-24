@@ -3,6 +3,7 @@ package kz.meiir.petproject.repository.jdbc;
 import kz.meiir.petproject.model.Role;
 import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.repository.UserRepository;
+import kz.meiir.petproject.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -44,6 +45,8 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     @Transactional
     public User save(User user) {
+        ValidationUtil.validate(user);
+
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
         if(user.isNew()){

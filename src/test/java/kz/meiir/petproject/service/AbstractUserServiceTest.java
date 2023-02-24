@@ -92,7 +92,6 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest{
 
     @Test
     void createWithException() throws Exception{
-        Assumptions.assumeTrue(isJpaBased(), "Validation not support (JPA only)");
         validateRootCause(() -> service.create(new User(null," ", "mail@ok.kz", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null,"User", "", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null,"User", "mail@ok.kz", "", Role.ROLE_USER)), ConstraintViolationException.class);

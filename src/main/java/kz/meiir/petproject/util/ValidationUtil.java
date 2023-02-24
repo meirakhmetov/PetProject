@@ -1,8 +1,11 @@
 package kz.meiir.petproject.util;
 
 import kz.meiir.petproject.HasId;
-import kz.meiir.petproject.model.AbstractBaseEntity;
 import kz.meiir.petproject.util.exception.NotFoundException;
+
+import javax.validation.*;
+
+import java.util.Set;
 
 /**
  * @author Meiir Akhmetov on 09.01.2023
@@ -57,4 +60,20 @@ public class ValidationUtil {
         return result;
     }
 
+    private static final Validator validator;
+
+    static{
+        //From Javadoc: implementations are thread-safe and instances are typically cached and reused.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        // From Javadoc: implementations of this interface must be thread-safe
+        validator = factory.getValidator();
+    }
+
+    public static <T> void validate(T bean){
+        //https://alexkosarev.name/2018/07/30/bean-validation-api/
+        Set<ConstraintViolation<T>> violations = validator.validate(bean);
+        if(!violations.isEmpty()){
+            throw new ConstraintViolationException(violations);
+        }
+    }
 }
