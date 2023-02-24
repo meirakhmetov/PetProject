@@ -2,6 +2,8 @@ package kz.meiir.petproject.web.user;
 
 import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.service.UserService;
+import kz.meiir.petproject.to.UserTo;
+import kz.meiir.petproject.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,11 @@ public abstract class AbstractUserController {
     public User get(int id){
         Log.info("get {}",id);
         return service.get(id);
+    }
+
+    public User create(UserTo userTo){
+        Log.info("create from to {}", userTo);
+        return create(UserUtil.creteNewFromTo(userTo));
     }
 
     public User create(User user){

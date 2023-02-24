@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
  * @author Meiir Akhmetov on 05.01.2023
  */
 public class MealsUtil {
-    public static final int DEFAULT_CALORIES_PER_DAY = 2000;
 
     private MealsUtil() {
     }

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 
-import static kz.meiir.petproject.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
+import static kz.meiir.petproject.util.UserUtil.DEFAULT_CALORIES_PER_DAY;
 
 /**
  * @author Meiir Akhmetov on 09.01.2023

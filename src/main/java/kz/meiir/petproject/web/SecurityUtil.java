@@ -2,7 +2,7 @@ package kz.meiir.petproject.web;
 
 import kz.meiir.petproject.model.AbstractBaseEntity;
 
-import static kz.meiir.petproject.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
+import static kz.meiir.petproject.util.UserUtil.DEFAULT_CALORIES_PER_DAY;
 
 /**
  * @author Meiir Akhmetov on 10.01.2023
