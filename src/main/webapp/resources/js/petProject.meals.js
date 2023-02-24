@@ -6,6 +6,10 @@ function updateFilteredTable() {
     }).done(updateTableByDate());
 }
 
+function clearFilter(){
+    $("#filter")[0].reset();
+    $.get("ajax/profile/meals/", updateTableByDate);
+}
 $(function () {
     makeEditable({
         ajaxUrl: "ajax/profile/meals/",
