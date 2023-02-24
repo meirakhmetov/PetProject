@@ -18,7 +18,7 @@ import java.util.Set;
 
 
 import static kz.meiir.petproject.UserTestData.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -98,5 +98,13 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest{
         validateRootCause(() -> service.create(new User(null,"User", "mail@ok.kz", "", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null,"User", "mail@ok.kz", "password",9,true,new Date(), Set.of())), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null,"User", "mail@ok.kz", "password",100001,true,new Date(), Set.of())), ConstraintViolationException.class);
+    }
+
+    @Test
+    void enable(){
+        service.enable(USER_ID, false);
+        assertFalse(service.get(USER_ID).isEnabled());
+        service.enable(USER_ID, true);
+        assertTrue(service.get(USER_ID).isEnabled());
     }
 }
