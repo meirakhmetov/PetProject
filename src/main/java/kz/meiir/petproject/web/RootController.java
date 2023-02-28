@@ -1,7 +1,6 @@
 package kz.meiir.petproject.web;
 
 import kz.meiir.petproject.service.MealService;
-import kz.meiir.petproject.service.UserService;
 import kz.meiir.petproject.util.MealsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class RootController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private MealService mealService;
@@ -28,8 +25,7 @@ public class RootController {
     }
 
     @GetMapping("/users")
-    public String getUsers(Model model){
-        model.addAttribute("users", userService.getAll());
+    public String getUsers(){
         return "users";
     }
 
