@@ -1,5 +1,5 @@
 ---
 exculde_paths:
   - 'src/main/webapp/**'
-  - 'README.md'
+  - '**.md'
   - '**.sql'

@@ -36,8 +36,8 @@
             </button>
         </p>
         <br/>
-        <p>
-            Стек технологий:
+        <div class="lead py-4">
+            Стек технологий:<br>
             <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
             <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
             <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
@@ -57,8 +57,8 @@
             <a href="http://hamcrest.org">Hamcrest</a>,
             <a href="http://jquery.com">jQuery</a>,
             <a href="http://ned.im/noty">jQuery notification</a>,
-            <a href="http://getbootstrap.com">Bootstrap</a>
-        </p>
+            <a href="http://getbootstrap.com">Bootstrap</a>.
+        </div>
     </div>
 </div>
 <div class="container lead">
