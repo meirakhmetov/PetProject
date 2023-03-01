@@ -1,16 +1,21 @@
 package kz.meiir.petproject.service;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import kz.meiir.petproject.AuthorizedUser;
 import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.repository.UserRepository;
 import kz.meiir.petproject.to.UserTo;
 import kz.meiir.petproject.util.UserUtil;
-import kz.meiir.petproject.util.exception.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -20,8 +25,9 @@ import static kz.meiir.petproject.util.ValidationUtil.checkNotFoundWithId;
 /**
  * @author Meiir Akhmetov on 09.01.2023
  */
-@Service
-public class UserService {
+@Service("userService")
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
 
@@ -47,7 +53,7 @@ public class UserService {
 
     public User getByEmail(String email) {
         Assert.notNull(email,"email must not be null");
-        return checkNotFound(repository.getByEmail(email),"email-" + email);
+        return checkNotFound(repository.getByEmail(email),"email=" + email);
     }
 
     @Cacheable("users")
@@ -75,6 +81,15 @@ public class UserService {
         User user = get(id);
         user.setEnabled(enabled);
         repository.save(user); // !! need only for JDBC implementation
+    }
+
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.getByEmail(email.toLowerCase());
+        if(user == null){
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(user);
     }
 
     public User getWithMeals(int id){
