@@ -1,22 +1,18 @@
 package kz.meiir.petproject;
 
-import kz.meiir.petproject.model.Role;
-import kz.meiir.petproject.model.User;
-import kz.meiir.petproject.repository.UserRepository;
-import kz.meiir.petproject.service.UserService;
 import kz.meiir.petproject.to.MealTo;
 import kz.meiir.petproject.web.meal.MealRestController;
 import kz.meiir.petproject.web.user.AdminRestController;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
+
+import static kz.meiir.petproject.TestUtil.mockAuthorize;
+import static kz.meiir.petproject.UserTestData.USER;
 
 /**
  * @author Meiir Akhmetov on 10.01.2023
@@ -29,6 +25,8 @@ public class SpringMain {
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
             adminUserController.getAll();
             System.out.println();
+
+            mockAuthorize(USER);
 
             MealRestController mealController = appCtx.getBean(MealRestController.class);
             List<MealTo> filteredMealsWithExcess =

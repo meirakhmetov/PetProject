@@ -1,9 +1,17 @@
 package kz.meiir.petproject.web;
 
+import kz.meiir.petproject.model.User;
+import kz.meiir.petproject.web.json.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -13,6 +21,7 @@ import kz.meiir.petproject.AllActiveProfileResolver;
 import javax.annotation.PostConstruct;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static kz.meiir.petproject.web.AbstractControllerTest.RequestWrapper.wrap;
 
 /**
  * @author Meiir Akhmetov on 14.02.2023
@@ -40,6 +49,12 @@ abstract public class AbstractControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    private final String url;
+
+    public AbstractControllerTest(String url) {
+        this.url = url + '/';
+    }
+
     @PostConstruct
     private void postConstruct(){
         mockMvc = MockMvcBuilders
@@ -47,5 +62,86 @@ abstract public class AbstractControllerTest {
                 .addFilter(CHARACTER_ENCODING_FILTER)
                 .apply(springSecurity())
                 .build();
+    }
+
+    public ResultActions perform(RequestWrapper wrapper) throws Exception{
+        return perform(wrapper.builder);
+    }
+
+
+    public ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception{
+        return mockMvc.perform(builder);
+    }
+
+    protected RequestWrapper doGet(String urlTemplatePad, Object... urlVars){
+        return wrap(MockMvcRequestBuilders.get(url + urlTemplatePad, urlVars));
+    }
+
+    protected RequestWrapper doGet(){
+        return wrap(MockMvcRequestBuilders.get(url));
+    }
+
+    protected RequestWrapper doGet(String pad){
+        return wrap(MockMvcRequestBuilders.get(url + pad));
+    }
+
+    protected RequestWrapper doGet(int id){
+        return doGet("{id}",id);
+    }
+
+    protected RequestWrapper doDelete(){
+        return wrap(MockMvcRequestBuilders.delete(url));
+    }
+
+    protected RequestWrapper doDelete(int id){
+        return wrap(MockMvcRequestBuilders.delete(url + "{id}", id));
+    }
+
+    protected RequestWrapper doPut(){
+        return wrap(MockMvcRequestBuilders.put(url));
+    }
+
+    protected RequestWrapper doPut(int id){
+        return wrap(MockMvcRequestBuilders.put(url + "{id}", id));
+    }
+
+    protected RequestWrapper doPost(){
+        return wrap(MockMvcRequestBuilders.post(url));
+    }
+
+    protected RequestWrapper doPatch(int id){
+        return wrap(MockMvcRequestBuilders.patch(url + "{id}",id));
+    }
+
+    public static class RequestWrapper{
+        private final MockHttpServletRequestBuilder builder;
+
+        private RequestWrapper(MockHttpServletRequestBuilder builder){
+            this.builder = builder;
+        }
+
+        public static RequestWrapper wrap(MockHttpServletRequestBuilder builder){
+            return new RequestWrapper(builder);
+        }
+
+        public MockHttpServletRequestBuilder unwrap(){
+            return builder;
+        }
+
+        public <T> RequestWrapper jsonBody(T body){
+            builder.contentType(MediaType.APPLICATION_JSON).content(JsonUtil.writeValue(body));
+            return this;
+        }
+
+        public RequestWrapper basicAuth(User user){
+            builder.with(SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword()));
+            return this;
+        }
+
+        public RequestWrapper auth(User user){
+            builder.with(SecurityMockMvcRequestPostProcessors.authentication(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())));
+            return this;
+        }
+
     }
 }

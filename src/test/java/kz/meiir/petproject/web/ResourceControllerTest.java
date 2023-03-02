@@ -11,11 +11,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Meiir Akhmetov on 20.02.2023
  */
-public class ResourceControllerTest extends AbstractControllerTest {
+class ResourceControllerTest extends AbstractControllerTest {
+
+    ResourceControllerTest() {
+        super("/resources/css/style.css");
+    }
 
     @Test
     void testResources() throws Exception{
-        mockMvc.perform(get("/resources/css/style.css"))
+        perform(doGet())
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.valueOf("text/css")))
                 .andExpect(status().isOk());

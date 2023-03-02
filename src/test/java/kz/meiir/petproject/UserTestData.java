@@ -35,23 +35,5 @@ public class UserTestData {
         return updated;
     }
 
-    public static void assertMatch(User actual, User expected){
-        assertThat(actual).isEqualToIgnoringGivenFields(expected,"registered","meals");
-    }
-
-    public static void assertMatch(Iterable<User> actual, User... expected){
-        assertMatch(actual, List.of(expected));
-    }
-
-    public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("registered","meals").isEqualTo(expected);
-    }
-
-    public static ResultMatcher contentJson(User... expected){
-        return result -> assertMatch(readListFromJsonMvcResult(result, User.class), List.of(expected));
-    }
-
-    public static ResultMatcher contentJson(User expected){
-        return result -> assertMatch(readFromJsonMvcResult(result, User.class), expected);
-    }
+   public static TestMatchers<User> USER_MATCHERS = TestMatchers.useFieldsComparator(User.class,"registered", "meals");
 }
