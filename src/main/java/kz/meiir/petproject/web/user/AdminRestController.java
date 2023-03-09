@@ -1,13 +1,11 @@
 package kz.meiir.petproject.web.user;
 
 import kz.meiir.petproject.model.User;
-import kz.meiir.petproject.web.SecurityUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 
 import java.net.URI;
 import java.util.List;

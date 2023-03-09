@@ -2,8 +2,6 @@ package kz.meiir.petproject.util;
 
 import org.springframework.lang.Nullable;
 
-import java.time.LocalTime;
-
 /**
  * @author Meiir Akhmetov on 10.01.2023
  */

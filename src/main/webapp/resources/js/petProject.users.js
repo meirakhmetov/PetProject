@@ -12,20 +12,14 @@ function enable(chkbox, id) {
         successNoty(enabled ? "common.enabled" : "common.disabled");
     }).fail(function () {
         $(chkbox).prop("checked", !enabled);
-    })
+    });
 }
 
 // $(document).ready(function(){
 $(function () {
     makeEditable({
         ajaxUrl: userAjaxUrl,
-        datatableApi: $("#datatable").DataTable({
-            "ajax":{
-                "url":userAjaxUrl,
-                "dataSrc" : ""
-            },
-            "paging": false,
-            "info": true,
+        datatableOpts: {
             "columns": [
                 {
                     "data": "name"
@@ -33,7 +27,7 @@ $(function () {
                 {
                     "data": "email",
                     "render": function (data, type, row) {
-                        if(type === "display"){
+                        if (type === "display"){
                             return "<a href='mailto:" + data + "'>" + data + "</a>";
                         }
                         return data;
@@ -82,7 +76,7 @@ $(function () {
                     $(row).attr("data-userEnabled", false);
                 }
             }
-        }),
+        },
         updateTable: function () {
             $.get(userAjaxUrl, updateTableByData);
 

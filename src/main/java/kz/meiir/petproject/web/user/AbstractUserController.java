@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static kz.meiir.petproject.util.ValidationUtil.assureIdConsistent;
+import static kz.meiir.petproject.util.ValidationUtil.checkNew;
 
 
 /**
@@ -39,6 +40,7 @@ public abstract class AbstractUserController {
 
     public User create(User user){
         Log.info("create {}",user);
+        checkNew(user);
         return service.create(user);
     }
 

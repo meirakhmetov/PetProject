@@ -1,11 +1,13 @@
 package kz.meiir.petproject.util;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import kz.meiir.petproject.HasId;
 import kz.meiir.petproject.util.exception.NotFoundException;
 
 import javax.validation.*;
-
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Meiir Akhmetov on 09.01.2023
@@ -44,7 +46,7 @@ public class ValidationUtil {
         // conservative when you reply, but  accept liberally (http://stackoverflow.com/a/32728226/548473)
         if(bean.isNew()){
             bean.setId(id);
-        }else if(bean.id() !=id){
+        }else if(bean.id() != id){
             throw new IllegalArgumentException(bean + " must be with id=" + id);
         }
     }
@@ -75,5 +77,13 @@ public class ValidationUtil {
         if(!violations.isEmpty()){
             throw new ConstraintViolationException(violations);
         }
+    }
+
+    public static ResponseEntity<String> getErrorResponse(BindingResult result){
+        return ResponseEntity.unprocessableEntity().body(
+                result.getFieldErrors().stream()
+                        .map(fe->String.format("[%s] %s", fe.getField(), fe.getDefaultMessage()))
+                        .collect(Collectors.joining("<br"))
+        );
     }
 }

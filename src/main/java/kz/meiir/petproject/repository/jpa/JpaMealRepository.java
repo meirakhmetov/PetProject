@@ -8,12 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static kz.meiir.petproject.util.DateTimeUtil.getEndExclusive;
-import static kz.meiir.petproject.util.DateTimeUtil.getStartInclusive;
 
 /**
  * @author Meiir Akhmetov on 23.01.2023
@@ -61,11 +57,11 @@ public class JpaMealRepository implements MealRepository {
     }
 
     @Override
-    public List<Meal> getBetweenInclusive(LocalDateTime startDate, LocalDateTime endDate, int userId) {
+    public List<Meal> getBetweenInclusive(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
         return em.createNamedQuery(Meal.GET_BETWEEN, Meal.class)
                 .setParameter("userId",userId)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate",endDate)
+                .setParameter("startDate", startDateTime)
+                .setParameter("endDate",endDateTime)
                 .getResultList();
     }
 }

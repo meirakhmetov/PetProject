@@ -56,7 +56,7 @@ public class MealTo extends BaseTo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id,dateTime,description,calories,excess);
+        return Objects.hash(id, dateTime, description, calories, excess);
     }
 
     @Override

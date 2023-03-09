@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static kz.meiir.petproject.util.ValidationUtil.checkNotFoundWithId;
@@ -24,7 +23,6 @@ public class MealService{
     public MealService(MealRepository repository) {
         this.repository = repository;
     }
-
 
     public Meal get(int id, int userId){
         return checkNotFoundWithId(repository.get(id,userId),id);

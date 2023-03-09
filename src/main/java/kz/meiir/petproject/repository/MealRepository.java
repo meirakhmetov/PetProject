@@ -26,10 +26,10 @@ public interface MealRepository {
     Meal get(int id, int userId);
 
     List<Meal> getAll(int userId);
+
     default List<Meal> getBetweenInclusive(@Nullable LocalDate startDate, @Nullable LocalDate endDate, int userId){
         return getBetweenInclusive(getStartInclusive(startDate), getEndExclusive(endDate), userId);
     };
-
 
     List<Meal> getBetweenInclusive(@NonNull LocalDateTime startDate, @NonNull LocalDateTime endDate, int userId);
 

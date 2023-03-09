@@ -1,22 +1,20 @@
 package kz.meiir.petproject.service;
 
-import kz.meiir.petproject.model.Meal;
-import kz.meiir.petproject.util.exception.NotFoundException;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import kz.meiir.petproject.model.Meal;
+import kz.meiir.petproject.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.time.Month;
 
 import static java.time.LocalDateTime.of;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static kz.meiir.petproject.MealTestData.*;
 import static kz.meiir.petproject.UserTestData.ADMIN_ID;
 import static kz.meiir.petproject.UserTestData.USER_ID;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Meiir Akhmetov on 20.01.2023
@@ -104,7 +102,6 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest{
 
     @Test
     void createWithException() throws Exception{
-        Assumptions.assumeTrue(isJpaBased(),"Validation not support (JPA only)");
         validateRootCause(()-> service.create(new Meal(null,of(2023,Month.JANUARY,1,18,0)," ",300),USER_ID), ConstraintViolationException.class);
         validateRootCause(()-> service.create(new Meal(null,null,"Description",300),USER_ID), ConstraintViolationException.class);
         validateRootCause(()-> service.create(new Meal(null,of(2023,Month.JANUARY,1,18,0),"Description",9),USER_ID), ConstraintViolationException.class);

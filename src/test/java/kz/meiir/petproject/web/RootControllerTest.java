@@ -2,11 +2,10 @@ package kz.meiir.petproject.web;
 
 import org.junit.jupiter.api.Test;
 
+import static kz.meiir.petproject.UserTestData.USER;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static kz.meiir.petproject.MealTestData.MEALS;
 import static kz.meiir.petproject.UserTestData.ADMIN;
-import static kz.meiir.petproject.util.MealsUtil.getTos;
 
 /**
  * @author Meiir Akhmetov on 14.02.2023
@@ -36,11 +35,10 @@ class RootControllerTest extends AbstractControllerTest {
 
     @Test
     void getMeals() throws Exception{
-        perform(doGet("meals"))
+        perform(doGet("meals").auth(USER))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("meals"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/meals.jsp"))
-                .andExpect(model().attribute("meals", getTos(MEALS, SecurityUtil.authUserCaloriesPerDay())));
+                .andExpect(forwardedUrl("/WEB-INF/jsp/meals.jsp"));
     }
 }

@@ -6,7 +6,9 @@ import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -29,8 +31,8 @@ public class MealsUtil {
     public static List<MealTo> getFiltered(Collection<Meal> meals,  int caloriesPerDay, Predicate<Meal> filter) {
         Map<LocalDate, Integer> caloriesSumByDate = meals.stream()
                 .collect(
-//                        Collectors.groupingBy(Meal::getDate,Collectors.summingInt(Meal::getCalories))
-                        Collectors.toMap(Meal::getDate,Meal::getCalories,Integer::sum)
+                        Collectors.groupingBy(Meal::getDate,Collectors.summingInt(Meal::getCalories))
+//                        Collectors.toMap(Meal::getDate,Meal::getCalories,Integer::sum)
                 );
         return meals.stream()
                 .filter(filter)

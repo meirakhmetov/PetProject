@@ -1,13 +1,13 @@
 package kz.meiir.petproject.web.meal;
 
-import kz.meiir.petproject.model.Meal;
-import kz.meiir.petproject.to.MealTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import kz.meiir.petproject.model.Meal;
+import kz.meiir.petproject.to.MealTo;
 
 import java.net.URI;
 import java.time.LocalDate;

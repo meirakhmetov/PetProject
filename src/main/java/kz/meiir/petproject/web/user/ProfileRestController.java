@@ -4,7 +4,6 @@ import kz.meiir.petproject.model.User;
 import kz.meiir.petproject.to.UserTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import static kz.meiir.petproject.web.SecurityUtil.authUserId;

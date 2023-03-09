@@ -4,6 +4,7 @@ package kz.meiir.petproject.repository.jdbc;
 import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.repository.MealRepository;
 
+import kz.meiir.petproject.util.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,6 +46,8 @@ public class JdbcMealRepository implements MealRepository {
     @Override
     @Transactional
     public Meal save(Meal meal, int userId) {
+        ValidationUtil.validate(meal);
+
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", meal.getId())
                 .addValue("description", meal.getDescription())
