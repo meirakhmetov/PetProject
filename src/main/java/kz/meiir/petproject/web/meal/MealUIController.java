@@ -1,10 +1,12 @@
 package kz.meiir.petproject.web.meal;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import kz.meiir.petproject.View;
 import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.to.MealTo;
 import kz.meiir.petproject.util.ValidationUtil;
@@ -23,12 +25,14 @@ public class MealUIController extends AbstractMealController{
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonView(View.JsonUI.class)
     public List<MealTo> getAll(){
         return super.getAll();
     }
 
     @Override
     @GetMapping(value = "/{id}")
+    @JsonView(View.JsonUI.class)
     public Meal get(@PathVariable int id){
         return super.get(id);
     }
@@ -56,6 +60,7 @@ public class MealUIController extends AbstractMealController{
 
     @Override
     @GetMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonView(View.JsonUI.class)
     public List<MealTo> getBetween(
             @RequestParam(value = "startDate", required = false) LocalDate startDate,
             @RequestParam(value = "startTime", required = false) LocalTime startTime,
