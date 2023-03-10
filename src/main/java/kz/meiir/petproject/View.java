@@ -1,9 +1,12 @@
 package kz.meiir.petproject;
 
+import javax.validation.groups.Default;
+
 /**
  * @author Meiir Akhmetov on 10.03.2023
  */
 public class View {
+    public interface Persist extends Default{}
     public interface JsonREST {}
     public interface JsonUI {}
 
