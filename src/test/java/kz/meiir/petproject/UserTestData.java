@@ -20,8 +20,8 @@ public class UserTestData {
     public static final int USER_ID = START_SEQ;
     public static final int ADMIN_ID = START_SEQ+1;
 
-    public static final User USER = new User(USER_ID, "User", "user@ok.kz", "password", Role.ROLE_USER);
-    public static final User ADMIN = new User(ADMIN_ID,"Admin","admin@ok.kz","admin", Role.ROLE_ADMIN, Role.ROLE_USER);
+    public static final User USER = new User(USER_ID, "User", "user@ok.kz", "password",2005, Role.ROLE_USER);
+    public static final User ADMIN = new User(ADMIN_ID,"Admin","admin@ok.kz","admin",1900, Role.ROLE_ADMIN, Role.ROLE_USER);
 
     public static User getNew(){
         return new User(null, "New","new@ok.kz","newPass",1555,false , new Date(), Collections.singleton(Role.ROLE_USER));

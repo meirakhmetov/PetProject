@@ -3,9 +3,9 @@ DELETE FROM meals;
 DELETE FROM users;
 ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100000;
 
-INSERT INTO users (name, email, password) VALUES
-('User', 'user@ok.kz','password'),
-('Admin','admin@ok.kz','admin');
+INSERT INTO users (name, email, password, calories_per_day) VALUES
+('User', 'user@ok.kz','password',2005),
+('Admin','admin@ok.kz','admin',1900);
 
 INSERT INTO user_roles (role, user_id) VALUES
 ('ROLE_USER',100000),
