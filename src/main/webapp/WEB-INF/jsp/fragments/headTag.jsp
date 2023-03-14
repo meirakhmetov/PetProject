@@ -4,6 +4,10 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
     <title><spring:message code="app.title"/></title>
     <base href="${pageContext.request.contextPath}/"/>
 
@@ -13,7 +17,6 @@
     <link rel="stylesheet" href="webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="webjars/noty/3.1.4/lib/noty.css"/>
     <link rel="stylesheet" href="webjars/datetimepicker/2.5.20/jquery.datetimepicker.css"/>
-
     <link rel="shortcut icon" href="resources/images/icon-meal.png">
 
     <%--http://stackoverflow.com/a/24070373/548473 --%>
