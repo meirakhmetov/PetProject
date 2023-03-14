@@ -13,6 +13,7 @@ import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.to.MealTo;
 import kz.meiir.petproject.util.ValidationUtil;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -47,8 +48,9 @@ public class MealUIController extends AbstractMealController{
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public ResponseEntity<String> createOrUpdate(@Validated(ValidatedUI.class) Meal meal, BindingResult result){
+    public ResponseEntity<String> createOrUpdate(@Valid Meal meal, BindingResult result){
         if(result.hasErrors()){
+            //TODO change to exception handler
             return ValidationUtil.getErrorResponse(result);
         }
         if(meal.isNew()){

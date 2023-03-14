@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger Log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static Logger Log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
     public ModelAndView defaltErrorHandler(HttpServletRequest reg, Exception e) throws Exception{

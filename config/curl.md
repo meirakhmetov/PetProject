@@ -27,3 +27,6 @@
 
 #### update Meals
 `curl -s -X PUT -d '{"dateTime":"2023-01-01T07:00", "description":"Updated breakfast", "calories":200}' -H 'Content-Type: application/json' http://localhost:8080/PetProject/rest/profile/meals/100003 --user user@ok.kz:password`
+
+#### validate with Error
+`curl -s -X POST -d '{}' -H 'Content-Type: application/json' http://localhost:8080/PetProject/rest/admin/users --user admin@ok.kz:admin`
