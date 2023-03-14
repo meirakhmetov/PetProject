@@ -1,16 +1,17 @@
 package kz.meiir.petproject.web.json;
 
-
-import com.fasterxml.jackson.databind.ObjectWriter;
-import kz.meiir.petproject.View;
-import kz.meiir.petproject.model.Meal;
 import org.junit.jupiter.api.Test;
+import kz.meiir.petproject.UserTestData;
+import kz.meiir.petproject.model.Meal;
+import kz.meiir.petproject.model.User;
 
 import java.util.List;
 
-import static kz.meiir.petproject.MealTestData.*;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static kz.meiir.petproject.MealTestData.*;
 
 /**
  * @author Meiir Akhmetov on 17.02.2023
@@ -34,10 +35,13 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testWriteWithView() throws Exception {
-        ObjectWriter uiWriter = JacksonObjectMapper.getMapper().writerWithView(View.JsonUI.class);
-        String json = JsonUtil.writeValue(ADMIN_MEAL1, uiWriter);
+    void testWriteOnlyAccess() throws Exception{
+        String json = JsonUtil.writeValue(UserTestData.USER);
         System.out.println(json);
-        assertThat(json, containsString("dateTimeUI"));
+        assertThat(json, not(containsString("password")));
+        String jsonWithPass = JsonUtil.writeAdditionProps(UserTestData.USER, "password","newPass");
+        System.out.println(jsonWithPass);
+        User user = JsonUtil.readValue(jsonWithPass, User.class);
+        assertEquals(user.getPassword(), "newPass");
     }
 }
