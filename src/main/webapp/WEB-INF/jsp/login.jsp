@@ -27,7 +27,7 @@
                 </button>
             </div>
         </sec:authorize>
-        <div class="lead py-4">Стек технологий: <br>
+        <div class="lead py-4"><spring:message code="app.stackTitle"/> <br>
             <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
             <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
             <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
@@ -51,14 +51,7 @@
         </div>
     </div>
 </div>
-<div class="container lead">
-    &nbsp;&nbsp;&nbsp;<a href="https://github.com/meiirakhmetov/Petproject"> Java Enterprise проект</a> с
-    регистрацией/авторизацией и интерфейсом на основе ролей (USER, ADMIN).
-    Администратор может создавать/редактиовать/удалять пользователей, а пользователи - управлять своим
-    профелем и данными (день, еда, калории) через UI (по AJAX) и по REST интерфейсу с базовой авторизацией.
-    Возможно фильтрация данных по датам и времени, при этом цвет записи таблицы еды зависит от того, превышает ли
-    сумма калорий за день норму (редактируемый параметр в профиле пользователя).
-    Весь REST интерфейс покрывается JUnit тестами, используя Spring MVC Test и Spring Security Test.
+<div class="container lead"><spring:message code="app.description"/>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 <script type="text/javascript">
