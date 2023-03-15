@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import kz.meiir.petproject.View;
 import kz.meiir.petproject.model.Meal;
 import kz.meiir.petproject.to.MealTo;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -44,7 +44,7 @@ public class MealUIController extends AbstractMealController{
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@Valid Meal meal){
+    public void createOrUpdate(@Validated(View.Web.class) Meal meal){
         if(meal.isNew()){
             super.create(meal);
         } else{

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 import kz.meiir.petproject.View;
 import kz.meiir.petproject.View.ValidatedUI;
@@ -43,6 +44,7 @@ public class Meal extends AbstractBaseEntity {
     @Column(name = "description", nullable = false)
     @NotBlank(groups = {ValidatedUI.class, Default.class})
     @Size(min=2, max=120, groups = {ValidatedUI.class, Default.class})
+    @SafeHtml(groups = {View.Web.class})
     private String description;
 
     @Column(name = "calories", nullable = false)

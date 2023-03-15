@@ -6,6 +6,9 @@ import javax.validation.groups.Default;
  * @author Meiir Akhmetov on 10.03.2023
  */
 public class View {
+    //Validate only form UI/REST
+    public interface Web extends Default{}
+    //Validate only when DB save/update
     public interface Persist extends Default{}
     public interface JsonREST {}
     public interface JsonUI {}

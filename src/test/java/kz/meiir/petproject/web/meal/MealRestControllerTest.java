@@ -15,6 +15,8 @@ import kz.meiir.petproject.web.json.JsonUtil;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 import static kz.meiir.petproject.UserTestData.*;
 import static kz.meiir.petproject.util.exception.ErrorType.VALIDATION_ERROR;
 import static kz.meiir.petproject.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_DATETIME;
@@ -164,5 +166,15 @@ class MealRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isConflict())
                 .andExpect(errorType(VALIDATION_ERROR))
                 .andExpect(detailMessage(EXCEPTION_DUPLICATE_DATETIME));
+    }
+
+    @Test
+    void updateHtmlUnsafe() throws Exception{
+        Meal invalid = new Meal(MEAL1_ID, LocalDateTime.now(), "<script>alert(123)</script>",200);
+        perform(doPut(MEAL1_ID).jsonBody(invalid).basicAuth(USER))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(VALIDATION_ERROR))
+                .andDo(print());
     }
 }
