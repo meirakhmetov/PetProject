@@ -80,6 +80,6 @@ public class ExceptionInfoHandler {
             Log.warn("{} at request {}: {}", errorType, req.getRequestURI(), rootCause.toString());
         }
         return new ErrorInfo(req.getRequestURI(), errorType,
-                details.length !=0 ? details : new String[]{rootCause.toString()});
+                details.length !=0 ? details : new String[]{ValidationUtil.getMessage(rootCause)});
     }
 }

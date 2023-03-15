@@ -20,6 +20,8 @@ import static kz.meiir.petproject.util.ValidationUtil.checkNew;
 public abstract class AbstractUserController {
     protected final Logger Log = LoggerFactory.getLogger(getClass());
 
+    public static final String EXCEPTION_DUPLICATE_EMAIL = "exception.user.duplicateEmail";
+
     @Autowired
     private UserService service;
 

@@ -2,6 +2,7 @@ package kz.meiir.petproject.web.user;
 
 import kz.meiir.petproject.to.UserTo;
 import kz.meiir.petproject.web.SecurityUtil;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -28,11 +29,15 @@ public class ProfileUIController extends AbstractUserController {
     public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status){
         if(result.hasErrors()){
             return "profile";
-        }else{
+        }
+        try {
             super.update(userTo, SecurityUtil.authUserId());
             SecurityUtil.get().update(userTo);
             status.setComplete();
             return "redirect:/meals";
+        }catch (DataIntegrityViolationException ex){
+            result.rejectValue("email", EXCEPTION_DUPLICATE_EMAIL);
+            return "profile";
         }
     }
 
@@ -48,10 +53,15 @@ public class ProfileUIController extends AbstractUserController {
         if(result.hasErrors()){
             model.addAttribute("register", true);
             return "profile";
-        }else{
+        }
+        try{
             super.create(userTo);
             status.setComplete();
             return "redirect:/login?message=app.registered&username=" + userTo.getEmail();
+        }catch (DataIntegrityViolationException ex) {
+            result.rejectValue("email", EXCEPTION_DUPLICATE_EMAIL);
+            model.addAttribute("register", true);
+            return "profile";
         }
     }
 }
