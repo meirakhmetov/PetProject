@@ -12,8 +12,12 @@ import kz.meiir.petproject.service.MealService;
 import kz.meiir.petproject.util.exception.NotFoundException;
 import kz.meiir.petproject.web.AbstractControllerTest;
 import kz.meiir.petproject.web.json.JsonUtil;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static kz.meiir.petproject.UserTestData.*;
+import static kz.meiir.petproject.util.exception.ErrorType.VALIDATION_ERROR;
+import static kz.meiir.petproject.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_DATETIME;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static kz.meiir.petproject.MealTestData.*;
@@ -125,7 +129,7 @@ class MealRestControllerTest extends AbstractControllerTest {
         perform(doPost().jsonBody(invalid).basicAuth(ADMIN))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andExpect(errorType(VALIDATION_ERROR))
                 .andDo(print());
     }
 
@@ -135,7 +139,30 @@ class MealRestControllerTest extends AbstractControllerTest {
         perform(doPut(MEAL1_ID).jsonBody(invalid).basicAuth(USER))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andExpect(errorType(VALIDATION_ERROR))
                 .andDo(print());
+    }
+
+    @Test
+    @Transactional(propagation =  Propagation.NEVER)
+    void updateDuplicate() throws Exception{
+        Meal invalid = new Meal(MEAL1_ID, MEAL2.getDateTime(),"Dummy",200);
+
+        perform(doPut(MEAL1_ID).jsonBody(invalid).basicAuth(USER))
+                .andDo(print())
+                .andExpect(status().isConflict())
+                .andExpect(errorType(VALIDATION_ERROR))
+                .andExpect(detailMessage(EXCEPTION_DUPLICATE_DATETIME));
+    }
+
+    @Test
+    @Transactional(propagation =  Propagation.NEVER)
+    void createDuplicate() throws Exception{
+        Meal invalid = new Meal(null, ADMIN_MEAL1.getDateTime(),"Dummy",200);
+        perform(doPost().jsonBody(invalid).basicAuth(ADMIN))
+                .andDo(print())
+                .andExpect(status().isConflict())
+                .andExpect(errorType(VALIDATION_ERROR))
+                .andExpect(detailMessage(EXCEPTION_DUPLICATE_DATETIME));
     }
 }

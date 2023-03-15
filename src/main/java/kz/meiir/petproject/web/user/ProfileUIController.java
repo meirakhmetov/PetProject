@@ -13,6 +13,8 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 
+import static kz.meiir.petproject.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL;
+
 /**
  * @author Meiir Akhmetov on 13.03.2023
  */

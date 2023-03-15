@@ -1,6 +1,7 @@
 package kz.meiir.petproject.web;
 
 import kz.meiir.petproject.model.User;
+import kz.meiir.petproject.util.exception.ErrorType;
 import kz.meiir.petproject.web.json.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -20,8 +22,11 @@ import kz.meiir.petproject.AllActiveProfileResolver;
 
 import javax.annotation.PostConstruct;
 
+import java.util.Locale;
+
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static kz.meiir.petproject.web.AbstractControllerTest.RequestWrapper.wrap;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 /**
  * @author Meiir Akhmetov on 14.02.2023
@@ -54,6 +59,9 @@ abstract public class AbstractControllerTest {
     public AbstractControllerTest(String url) {
         this.url = url + '/';
     }
+
+    @Autowired
+    protected MessageUtil messageUtil;
 
     @PostConstruct
     private void postConstruct(){
@@ -151,6 +159,17 @@ abstract public class AbstractControllerTest {
             builder.with(SecurityMockMvcRequestPostProcessors.authentication(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())));
             return this;
         }
+    }
 
+    private String getMessage(String code){
+        return messageUtil.getMessage(code, Locale.ENGLISH);
+    }
+
+    public ResultMatcher errorType(ErrorType type){
+        return jsonPath("$.type").value(type.name());
+    }
+
+    public ResultMatcher detailMessage(String code){
+        return jsonPath("$.details").value(getMessage(code));
     }
 }
