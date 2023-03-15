@@ -47,11 +47,6 @@ public class GlobalExceptionHandler {
                         "status", httpStatus));
         mav.setStatus(httpStatus);
 
-        // Interceptor is not invoked, put userTo
-        AuthorizedUser authorizedUser = SecurityUtil.safeGet();
-        if(authorizedUser !=null){
-            mav.addObject("userTo", authorizedUser.getUserTo());
-        }
         return mav;
     }
 }
