@@ -6,11 +6,11 @@ package kz.meiir.petproject.util.exception;
 public class ErrorInfo {
     private final String url;
     private final ErrorType type;
-    private final String detail;
+    private final String[] details;
 
-    public ErrorInfo(String url, ErrorType type, String detail) {
+    public ErrorInfo(String url, ErrorType type, String... details) {
         this.url = url;
         this.type = type;
-        this.detail = detail;
+        this.details = details;
     }
 }
