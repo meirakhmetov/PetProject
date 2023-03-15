@@ -1,11 +1,14 @@
 package kz.meiir.petproject.util;
 
+import kz.meiir.petproject.util.exception.ErrorType;
 import kz.meiir.petproject.util.exception.IllegalRequestDataException;
+import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import kz.meiir.petproject.HasId;
 import kz.meiir.petproject.util.exception.NotFoundException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.*;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -82,5 +85,15 @@ public class ValidationUtil {
         if(!violations.isEmpty()){
             throw new ConstraintViolationException(violations);
         }
+    }
+
+    public static Throwable logAndGetRootCause(Logger Log, HttpServletRequest req, Exception e, boolean logException, ErrorType errorType){
+        Throwable rootCause = ValidationUtil.getRootCause(e);
+        if(logException){
+            Log.error(errorType + " at request" + req.getRequestURI(), rootCause);
+        }else{
+            Log.warn("{} at request {}: {}", errorType, req.getRequestURI(), rootCause.toString());
+        }
+        return rootCause;
     }
 }

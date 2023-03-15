@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -25,15 +26,24 @@ public class GlobalExceptionHandler {
     @Autowired
     private MessageUtil messageUtil;
 
-    @ExceptionHandler(Exception.class)
-    public ModelAndView defaltErrorHandler(HttpServletRequest reg, Exception e) throws Exception{
-        Log.error("Exception at request " + reg.getRequestURI(), e);
-        Throwable rootCause = ValidationUtil.getRootCause(e);
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ModelAndView wrongRequest(HttpServletRequest req, NoHandlerFoundException e) throws Exception{
+        return logAndExceptionView(req, e, false, ErrorType.WRONG_REQUEST);
+    }
 
-        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    @ExceptionHandler(Exception.class)
+    public ModelAndView defaltErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+        Log.error("Exception at request " + req.getRequestURI(), e);
+        return logAndExceptionView(req, e, true, ErrorType.APP_ERROR);
+    }
+
+    private ModelAndView  logAndExceptionView(HttpServletRequest req, Exception e, boolean logException, ErrorType errorType){
+        Throwable rootCause = ValidationUtil.logAndGetRootCause(Log, req, e, logException, errorType);
+
+        HttpStatus httpStatus = errorType.getStatus();
         ModelAndView mav = new ModelAndView("exception",
                 Map.of("exception", rootCause, "message", ValidationUtil.getMessage(rootCause),
-                        "typeMessage", messageUtil.getMessage(ErrorType.APP_ERROR.getErrorCode()),
+                        "typeMessage", messageUtil.getMessage(errorType.getErrorCode()),
                         "status", httpStatus));
         mav.setStatus(httpStatus);
 
