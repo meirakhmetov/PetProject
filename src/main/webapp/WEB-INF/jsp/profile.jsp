@@ -18,6 +18,7 @@
                 <form:form class="form-group" modelAttribute="userTo" method="post" action="${register ? 'profile/register' : 'profile'}"
                             charset="utf-8" accept-charset="UTF-8">
 
+                    <input name="id" value="${userTo.id}" type="hidden">
                     <petProject:inputField labelCode="user.name" name="name"/>
                     <petProject:inputField labelCode="user.email" name="email"/>
                     <petProject:inputField labelCode="user.password" name="password" inputType="password"/>

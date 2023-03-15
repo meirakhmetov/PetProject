@@ -1,5 +1,6 @@
 package kz.meiir.petproject.to;
 
+import kz.meiir.petproject.HasEmail;
 import kz.meiir.petproject.util.UserUtil;
 import org.hibernate.validator.constraints.Range;
 
@@ -12,7 +13,7 @@ import java.io.Serializable;
 /**
  * @author Meiir Akhmetov on 24.02.2023
  */
-public class UserTo extends BaseTo implements Serializable {
+public class UserTo extends BaseTo implements HasEmail, Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotBlank
@@ -59,6 +60,7 @@ public class UserTo extends BaseTo implements Serializable {
         this.name = name;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
