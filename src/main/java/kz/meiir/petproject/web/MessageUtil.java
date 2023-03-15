@@ -13,6 +13,7 @@ import java.util.Locale;
  */
 @Component
 public class MessageUtil {
+    public static final Locale RU_LOCALE = new Locale("ru");
 
     private final MessageSource messageSource;
 
