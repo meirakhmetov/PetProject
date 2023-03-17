@@ -1,5 +1,6 @@
 package kz.meiir.petproject.web;
 
+import kz.meiir.petproject.util.exception.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
@@ -22,12 +23,16 @@ public class MessageUtil {
         this.messageSource = messageSource;
     }
 
-    public String getMessage(String code, Locale locale){
-        return messageSource.getMessage(code, null, locale);
+    public String getMessage(String code, Locale locale, String... args){
+        return messageSource.getMessage(code, args, locale);
     }
 
-    public String getMessage(String code){
-        return getMessage(code, LocaleContextHolder.getLocale());
+    public String getMessage(String code, String... args){
+        return getMessage(code, LocaleContextHolder.getLocale(), args);
+    }
+
+    public String getMessage(ApplicationException appEx){
+        return getMessage(appEx.getMsgCode(), appEx.getArgs());
     }
 
     public String getMessage(MessageSourceResolvable resolvable){

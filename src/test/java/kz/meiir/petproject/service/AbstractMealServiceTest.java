@@ -1,5 +1,6 @@
 package kz.meiir.petproject.service;
 
+import kz.meiir.petproject.util.exception.ErrorType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import kz.meiir.petproject.model.Meal;
@@ -10,11 +11,10 @@ import java.time.LocalDate;
 import java.time.Month;
 
 import static java.time.LocalDateTime.of;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static kz.meiir.petproject.MealTestData.*;
 import static kz.meiir.petproject.UserTestData.ADMIN_ID;
 import static kz.meiir.petproject.UserTestData.USER_ID;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Meiir Akhmetov on 20.01.2023
@@ -80,7 +80,10 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest{
     @Test
     void updateNotFound() throws Exception{
         NotFoundException e = assertThrows(NotFoundException.class, () -> service.update(MEAL1,ADMIN_ID));
-        assertEquals(e.getMessage(), "Not found entity with id=" + MEAL1_ID);
+        String msg = e.getMessage();
+        assertTrue(msg.contains(ErrorType.DATA_NOT_FOUND.name()));
+        assertTrue(msg.contains(NotFoundException.NOT_FOUND_EXCEPTION));
+        assertTrue(msg.contains(String.valueOf(MEAL1_ID)));
     }
 
     @Test
